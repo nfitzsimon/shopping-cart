@@ -17,7 +17,6 @@ const products = [];
    - orange.jpg by Mae Mu
    - strawberry.jpg by Allec Gomes
 */
-
 const product1 = {
   name: "Carton of cherries",
   price: 4,
