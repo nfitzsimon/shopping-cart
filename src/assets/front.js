@@ -126,9 +126,15 @@ document.querySelector('.pay').addEventListener('click', (e) => {
     } else {
         // reset cash field for next entry
         document.querySelector('.received').value = '';
+        /* (Niamh Fitzsimon):
+        // a negative balance doesn't make sense for the UX
+        // setting the balance to the absolute value of cashReturn and showing that instead
+        // also moving the dollar sign before that number
+        */
+        const balance = Math.abs(cashReturn);
         div.innerHTML = `
             <p>Cash Received: ${currencySymbol}${amount}</p>
-            <p>Remaining Balance: ${cashReturn}$</p>
+            <p>Remaining Balance: ${currencySymbol}${balance}</p>
             <p>Please pay additional amount.</p>
             <hr/>
         `;
