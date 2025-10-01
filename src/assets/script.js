@@ -1,3 +1,5 @@
+let totalPaid = 0;
+
 /* Create an array named products which you will use to add all of your product object literals that you create in the next step. */
 const products = [];
 
@@ -110,8 +112,22 @@ function removeProductFromCart(productId) {
   - cartTotal should return the total cost of the products in the cart
   Hint: price and quantity can be used to determine total cost
 */
+function cartTotal() {
+  let total = 0;
+  cart.forEach(item => {
+    const itemTotal = item.price * item.quantity;
+    total += itemTotal;
+  });
+  return total;
+}
 
 /* Create a function called emptyCart that empties the products from the cart */
+function emptyCart() {
+  cart.forEach(function (item) {
+    item.quantity = 0;
+  });
+  cart.splice(0, cart.length);
+}
 
 /* Create a function named pay that takes in an amount as an argument
   - amount is the money paid by customer
@@ -119,6 +135,22 @@ function removeProductFromCart(productId) {
   - pay will return a positive number if money should be returned to customer
   Hint: cartTotal function gives us cost of all the products in the cart  
 */
+function pay(amount) {
+  let total = cartTotal();
+  if (total === 0) {
+    // if nothing was owed, all money is returned and nothing is added to totalPaid
+    return amount;
+  }
+  const balance = amount - (total - totalPaid);
+  if (balance > 0) {
+    // if money is returned, the total is added to totalPaid
+    totalPaid = totalPaid + total;
+  } else {
+    // if money is owed, the amount paid is added to totalPaid
+    totalPaid = totalPaid + amount;
+  }
+  return balance;
+}
 
 /* Place stand out suggestions here (stand out suggestions can be found at the bottom of the project rubric.)*/
 
