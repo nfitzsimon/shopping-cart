@@ -43,29 +43,67 @@ const product3 = {
 products.push(product1, product2, product3);
 
 /* Declare an empty array named cart to hold the items in the cart */
+let cart = [];
+
+/* Get an item from the cart
+*/
+function getItemFromCart(productId) {
+  return cart.find(item => item.productId === productId);
+}
 
 /* Create a function named addProductToCart that takes in the product productId as an argument
   - addProductToCart should get the correct product based on the productId
   - addProductToCart should then increase the product's quantity
   - if the product is not already in the cart, add it to the cart
 */
+function addProductToCart(productId) {
+  let cartItem = getItemFromCart(productId);;
+  if (cartItem) {
+    cartItem.quantity++;
+  } else {
+    const product = products.find(item => item.productId === productId);
+    cart.push(product);
+    cartItem = getItemFromCart(productId);;
+    cartItem.quantity++;
+  }
+}
 
 /* Create a function named increaseQuantity that takes in the productId as an argument
   - increaseQuantity should get the correct product based on the productId
   - increaseQuantity should then increase the product's quantity
 */
+function increaseQuantity(productId) {
+  const cartItem = getItemFromCart(productId);
+  cartItem.quantity++;
+}
 
 /* Create a function named decreaseQuantity that takes in the productId as an argument
   - decreaseQuantity should get the correct product based on the productId
   - decreaseQuantity should decrease the quantity of the product
   - if the function decreases the quantity to 0, the product is removed from the cart
 */
+function decreaseQuantity(productId) {
+  const cartItem = getItemFromCart(productId);;
+  cartItem.quantity--;
+  if (cartItem.quantity === 0) {
+    removeProductFromCart(productId);
+  }
+}
 
 /* Create a function named removeProductFromCart that takes in the productId as an argument
   - removeProductFromCart should get the correct product based on the productId
   - removeProductFromCart should update the product quantity to 0
   - removeProductFromCart should remove the product from the cart
 */
+function removeProductFromCart(productId) {
+  const cartItem = getItemFromCart(productId);
+  cartItem.quantity = 0;
+  const index = cart.indexOf(cartItem);
+  if (index !== -1) {
+    cart.splice(index, 1);
+  }
+
+}
 
 /* Create a function named cartTotal that has no parameters
   - cartTotal should iterate through the cart to get the total cost of all products
